@@ -36,27 +36,27 @@ public class GameFieldViewerComponent extends Canvas {
 				int currentX = CELL_WIDTH;
 				int currentY = CELL_HEIGH;
 				e.gc.drawRectangle(0, 0, getSize().x - 1, getSize().y - 1);
-				for (int i = 0; i < field.getWidth(); i++) {
+				for (int column = 0; column < field.getWidth(); column++) {
 					e.gc.drawLine(currentX, 0, currentX, getSize().y);
 					currentX += CELL_WIDTH;
 				}
-				for (int i = 0; i < field.getHeigh(); i++) {
+				for (int row = 0; row < field.getHeigh(); row++) {
 					e.gc.drawLine(0, currentY, getSize().x, currentY);
 					currentY += CELL_WIDTH;
 				}
-				for (int i = 0; i < field.getWidth(); i++) {
-					for (int j = 0; j < field.getHeigh(); j++) {
-						drawCell(i, j, field.getType(i, j));
+				for (int row = 0; row < field.getHeigh(); row++) {
+					for (int column = 0; column < field.getWidth(); column++) {
+						drawCell(column, row, field.getType(row, column));
 					}
 				}
 			}
 		});
 	}
 
-	public void drawCell(final int x, final int y, final GameObject object) {
+	public void drawCell(final int column, final int row, final GameObject object) {
 		switch (object) {
 		case LADYBUG:
-			gc.drawOval(CELL_WIDTH * x + 6, CELL_HEIGH * y + 2,
+			gc.drawOval(CELL_WIDTH * column + 6, CELL_HEIGH * row + 2,
 					CELL_WIDTH - 12, CELL_HEIGH - 4);
 //			gc.drawOval(CELL_WIDTH * x + CELL_WIDTH / 2, CELL_HEIGH * y + CELL_HEIGH / 2, 4, 4);
 //			gc.drawOval(CELL_WIDTH * x + CELL_WIDTH, CELL_HEIGH * y + CELL_HEIGH / 2, 4, 4);
@@ -64,37 +64,37 @@ public class GameFieldViewerComponent extends Canvas {
 //			gc.drawOval(CELL_WIDTH * x + CELL_WIDTH, CELL_HEIGH * y + CELL_HEIGH, 4, 4);
 //			gc.drawOval(CELL_WIDTH * x + CELL_WIDTH / 2, CELL_HEIGH * y + CELL_HEIGH, 4, 4);
 //			gc.drawOval(CELL_WIDTH * x + CELL_WIDTH, CELL_HEIGH * y + CELL_HEIGH, 4, 4);
-			gc.drawLine(CELL_WIDTH * x, CELL_HEIGH * y + CELL_HEIGH / 2 + 2,
-					CELL_WIDTH * x + 6, CELL_HEIGH * y + CELL_HEIGH / 2 + 2);
-			gc.drawLine(CELL_WIDTH * (x + 1) - 6, CELL_HEIGH * y + CELL_HEIGH
-					/ 2 + 2, CELL_WIDTH * (x + 1), CELL_HEIGH * y + CELL_HEIGH
+			gc.drawLine(CELL_WIDTH * column, CELL_HEIGH * row + CELL_HEIGH / 2 + 2,
+					CELL_WIDTH * column + 6, CELL_HEIGH * row + CELL_HEIGH / 2 + 2);
+			gc.drawLine(CELL_WIDTH * (column + 1) - 6, CELL_HEIGH * row + CELL_HEIGH
+					/ 2 + 2, CELL_WIDTH * (column + 1), CELL_HEIGH * row + CELL_HEIGH
 					/ 2 + 2);
-			gc.drawLine(CELL_WIDTH * x + 2, CELL_HEIGH * y + CELL_HEIGH / 2
-					- 10, CELL_WIDTH * x + 8, CELL_HEIGH * y + CELL_HEIGH / 2
+			gc.drawLine(CELL_WIDTH * column + 2, CELL_HEIGH * row + CELL_HEIGH / 2
+					- 10, CELL_WIDTH * column + 8, CELL_HEIGH * row + CELL_HEIGH / 2
 					- 10);
-			gc.drawLine(CELL_WIDTH * x + 4, CELL_HEIGH * y + CELL_HEIGH / 2
-					+ 10, CELL_WIDTH * x + 10, CELL_HEIGH * y + CELL_HEIGH / 2
+			gc.drawLine(CELL_WIDTH * column + 4, CELL_HEIGH * row + CELL_HEIGH / 2
+					+ 10, CELL_WIDTH * column + 10, CELL_HEIGH * row + CELL_HEIGH / 2
 					+ 10);
-			gc.drawLine(CELL_WIDTH * (x + 1) - 8, CELL_HEIGH * y + CELL_HEIGH
-					/ 2 - 10, CELL_WIDTH * (x + 1) - 2, CELL_HEIGH * y
+			gc.drawLine(CELL_WIDTH * (column + 1) - 8, CELL_HEIGH * row + CELL_HEIGH
+					/ 2 - 10, CELL_WIDTH * (column + 1) - 2, CELL_HEIGH * row
 					+ CELL_HEIGH / 2 - 10);
-			gc.drawLine(CELL_WIDTH * (x + 1) - 10, CELL_HEIGH * y + CELL_HEIGH
-					/ 2 + 10, CELL_WIDTH * (x + 1) - 4, CELL_HEIGH * y
+			gc.drawLine(CELL_WIDTH * (column + 1) - 10, CELL_HEIGH * row + CELL_HEIGH
+					/ 2 + 10, CELL_WIDTH * (column + 1) - 4, CELL_HEIGH * row
 					+ CELL_HEIGH / 2 + 10);
 			break;
 		case BLOCK:
-			gc.drawRectangle(CELL_WIDTH * x + 4, CELL_HEIGH * y + 4,
+			gc.drawRectangle(CELL_WIDTH * column + 4, CELL_HEIGH * row + 4,
 					CELL_WIDTH - 8, CELL_HEIGH - 8);
 			break;
 		case HOLE:
-			gc.drawOval(CELL_WIDTH * x + 4, CELL_HEIGH * y + 4, CELL_WIDTH - 8,
+			gc.drawOval(CELL_WIDTH * column + 4, CELL_HEIGH * row + 4, CELL_WIDTH - 8,
 					CELL_HEIGH - 8);
 			break;
 		case OCCUPIED_CELL:
-			gc.drawLine(CELL_WIDTH * x, CELL_HEIGH * y, CELL_WIDTH * x
-					+ CELL_WIDTH, CELL_HEIGH * y + CELL_HEIGH);
-			gc.drawLine(CELL_WIDTH * x + CELL_WIDTH, CELL_HEIGH * y, CELL_WIDTH
-					* x, CELL_HEIGH * y + CELL_HEIGH);
+			gc.drawLine(CELL_WIDTH * column, CELL_HEIGH * row, CELL_WIDTH * column
+					+ CELL_WIDTH, CELL_HEIGH * row + CELL_HEIGH);
+			gc.drawLine(CELL_WIDTH * column + CELL_WIDTH, CELL_HEIGH * row, CELL_WIDTH
+					* column, CELL_HEIGH * row + CELL_HEIGH);
 			break;
 		case EMPTY_CELL:
 			break;

@@ -1,6 +1,7 @@
 package ladybugAdventures.ui.animation.components;
 
 import ladybugAdventures.enums.GameObject;
+import ladybugAdventures.util.LazyRenderBuffer;
 import ladybugAdventures.util.ResourceProvider;
 
 import org.newdawn.slick.Graphics;
@@ -28,30 +29,7 @@ public class BaseCellRenderer extends AbstractComponent {
 	
 	public BaseCellRenderer(GUIContext container,int cellSize, GameObject objectType) throws SlickException {
 		super(container);
-//		image = new Image(ResourceProvider.getResInpStr(ResourceProvider.EMPTY_CELL_ID),
-//				ResourceProvider.EMPTY_CELL_ID,false);
-		switch (objectType) {
-			case EMPTY_CELL:
-				image = new Image(ResourceProvider.getResInpStr(ResourceProvider.EMPTY_CELL_ID),
-						ResourceProvider.EMPTY_CELL_ID,false);
-				break;
-			case BLOCK:
-				image = new Image(ResourceProvider.getResInpStr(ResourceProvider.BLOCK_ID),
-						ResourceProvider.BLOCK_ID,false);		
-				break;
-			case HOLE:
-				image = new Image(ResourceProvider.getResInpStr(ResourceProvider.HOLE_ID),
-						ResourceProvider.HOLE_ID,false);
-				break;
-			case LADYBUG:
-				image = new Image(ResourceProvider.getResInpStr(ResourceProvider.LADYBUG_ID),
-						ResourceProvider.LADYBUG_ID,false);
-				break;
-			case OCCUPIED_CELL:
-				image = new Image(ResourceProvider.getResInpStr(ResourceProvider.OCCUPIED_CELL_ID),
-						ResourceProvider.OCCUPIED_CELL_ID,false);
-				break;
-		}
+		image = LazyRenderBuffer.getImage(objectType);
 		this.width = cellSize;
 		this.height = cellSize;
 	}
@@ -59,7 +37,6 @@ public class BaseCellRenderer extends AbstractComponent {
 	@Override
 	public void render(GUIContext container, Graphics g) throws SlickException {
 		image.draw(x, y, width, height);
-
 	}
 
 	@Override
@@ -88,4 +65,12 @@ public class BaseCellRenderer extends AbstractComponent {
 		return height;
 	}
 
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
 }
